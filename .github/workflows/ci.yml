@@ -51,3 +51,16 @@ jobs:
           push: true
           tags: |
             niyazed/house-price-pred:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Deploy to Back4App
+        uses: omurilo/action-back4app@v3
+        with:
+          project: 'house-price-pred'
+          accountKey: ${{ secrets.BACK4APP_ACCOUNT_KEY }}
